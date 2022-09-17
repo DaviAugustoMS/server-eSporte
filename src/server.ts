@@ -10,9 +10,7 @@ app.use(express.json());
 
 app.use(cors());
 
-const prisma = new PrismaClient({
-  log: ["query"],
-});
+const prisma = new PrismaClient();
 
 app.get("/games", async (req, res) => {
   const games = await prisma.game.findMany({
@@ -30,7 +28,6 @@ app.get("/games", async (req, res) => {
 app.post("/games/:id/ads", async (req, res) => {
   const gameId = req.params.id;
   const body = req.body;
-  console.log(body);
 
   const ad = await prisma.ad.create({
     data: {
